@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainSceneController">
+   <children>
+      <SplitPane dividerPositions="0.38127090301003347" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="598.0">
+               <children>
+                  <Label layoutX="100.0" layoutY="43.0" text="Name: " />
+                  <Label layoutX="99.0" layoutY="81.0" text="Machine: " />
+                  <Label layoutX="101.0" layoutY="124.0" text="Start Time: " />
+                  <TextField fx:id="nameInput" layoutX="205.0" layoutY="43.0" promptText="user name here..." />
+                  <ChoiceBox fx:id="machineDropdown" layoutX="205.0" layoutY="76.0" prefHeight="25.0" prefWidth="171.0">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </ChoiceBox>
+                  <TextField fx:id="timeInput" editable="false" layoutX="205.0" layoutY="119.0">
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </TextField>
+                  <Button fx:id="entryButton" layoutX="205.0" layoutY="166.0" mnemonicParsing="false" onAction="#EntryButtonAction" prefHeight="25.0" prefWidth="77.0" text="Entry" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="598.0">
+               <children>
+                  <TableView fx:id="customerTable" layoutX="7.0" prefHeight="366.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+                      <TableColumn fx:id="machineNameCol" prefWidth="139.0" text="Machine Name" />
+                        <TableColumn fx:id="startTimeCol" minWidth="0.0" prefWidth="88.0" text="Start Time" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
