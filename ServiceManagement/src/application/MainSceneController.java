@@ -52,6 +52,8 @@ public class MainSceneController {
 	
 	@FXML
 	private TableColumn<Customer, String> endTimeCol;
+	
+	private TableColumn<Customer, Double> amountCol;
 
 	private Main mainApp;
 
@@ -86,10 +88,13 @@ public class MainSceneController {
 	}
 
 	private void columnBinding() {
-		nameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
-		machineNameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("machineName"));
-		startTimeCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("startTimeString"));
-		endTimeCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("stopTimeString"));
+		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		machineNameCol.setCellValueFactory(cellData -> cellData.getValue().machineNameProperty());
+		startTimeCol.setCellValueFactory(cellData -> cellData.getValue().startTimeStringProperty());
+		endTimeCol.setCellValueFactory(cellData -> cellData.getValue().stopTimeStringProperty());
+		
+		//important part is calling asObject() method
+		amountCol.setCellValueFactory(cellData-> cellData.getValue().amountProperty().asObject());
 	}
 	
 	@FXML
