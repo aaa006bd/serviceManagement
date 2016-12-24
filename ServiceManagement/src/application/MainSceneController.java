@@ -1,5 +1,6 @@
 package application;
 
+import java.time.Duration;
 import java.time.Instant;
 
 import javafx.collections.FXCollections;
@@ -53,6 +54,7 @@ public class MainSceneController {
 	@FXML
 	private TableColumn<Customer, String> endTimeCol;
 	
+	@FXML
 	private TableColumn<Customer, Double> amountCol;
 
 	private Main mainApp;
@@ -100,16 +102,29 @@ public class MainSceneController {
 	@FXML
 	private void deleteCustomerRow(ActionEvent event){
 		int index = customerTable.getSelectionModel().getSelectedIndex();
-		model.getCustomerList().remove(index);
+		if (index >= 0) {
+			model.getCustomerList().remove(index);
+		}
 	}
 
 	@FXML
 	private void computeCustomerInfo(ActionEvent event){
-		Instant endTime = Instant.now();
+		
 		int index = customerTable.getSelectionModel().getSelectedIndex();
-		Customer selectedCustomer =model.getCustomerList().get(index);
-		selectedCustomer.setStopTime(endTime);
-		selectedCustomer.setStopTimeString(endTime.toString());
+		if(index >= 0){
+			Instant endTime = Instant.now();
+			Customer selectedCustomer =model.getCustomerList().get(index);
+			selectedCustomer.setStopTime(endTime);
+			selectedCustomer.setStopTimeString(endTime.toString());
+			selectedCustomer.setAmount(totalPaybleAmount(selectedCustomer));
+		}
+	}
+	
+	private double totalPaybleAmount(Customer customer){
+				
+		double time = (double)Duration.between(customer.getStartTime(), customer.getStopTime()).toMinutes();
+		System.out.println("time is :"+time+" minutes");
+		return time;
 	}
 
 }

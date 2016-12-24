@@ -23,6 +23,9 @@ public class Customer {
 		this.machineName = new SimpleStringProperty(machineName);
 		this.startTimeString = new SimpleStringProperty(StartTimeString);
 		this.stopTimeString = new SimpleStringProperty();
+		this.amount = new SimpleDoubleProperty();
+		
+		this.startTime = startTime;
 		
 	}
 	

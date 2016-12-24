@@ -37,7 +37,7 @@
                       <TableColumn fx:id="machineNameCol" prefWidth="139.0" text="Machine Name" />
                         <TableColumn fx:id="startTimeCol" minWidth="0.0" prefWidth="88.0" text="Start Time" />
                         <TableColumn fx:id="endTimeCol" minWidth="0.0" prefWidth="88.0" text="End Time" />
-                        <TableColumn fx:id="amountCol" minWidth="0.0" prefWidth="88.0" text="End Time" />
+                        <TableColumn fx:id="amountCol" minWidth="0.0" prefWidth="88.0" text="Amount" />
                     </columns>
                   </TableView>
                   <Button fx:id="deleteButton" layoutX="330.0" layoutY="323.0" mnemonicParsing="false" onAction="#deleteCustomerRow" text="Delete" />
