@@ -6,18 +6,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class MainSceneController {
 
 	ObservableList<String> machineName = FXCollections.observableArrayList("ps4", "xbox one", "ps3", "xbox 360", "ps2");
+	
+	private CustomerModel model ;
 
-	ObservableList<Customer> customerList = FXCollections.observableArrayList();
+	public void setModel(CustomerModel model) {
+		this.model = model;
+		customerTable.setItems(model.getCustomerList());
+	}
 
 	@FXML
 	private TextField nameInput;
@@ -33,18 +40,24 @@ public class MainSceneController {
 
 	@FXML
 	private TableView<Customer> customerTable;
-	
+
 	@FXML
 	private TableColumn<Customer, String> nameCol;
-	
 
 	@FXML
 	private TableColumn<Customer, String> machineNameCol;
-	
 
 	@FXML
 	private TableColumn<Customer, String> startTimeCol;
 	
+	@FXML
+	private TableColumn<Customer, String> endTimeCol;
+
+	private Main mainApp;
+
+	public void setMainApp(Main mainApp) {
+		this.mainApp = mainApp;
+	}
 	
 
 	public MainSceneController() {
@@ -56,28 +69,42 @@ public class MainSceneController {
 	private void initialize() {
 		machineDropdown.setValue("ps4");
 		machineDropdown.setItems(machineName);
-		customerTable.setItems(customerList);
 		columnBinding();
 	}
-	
+
 	@FXML
-	private void EntryButtonAction( ActionEvent event){
+	private void EntryButtonAction(ActionEvent event) {
 		String name = nameInput.getText();
 		String machine = machineDropdown.getSelectionModel().getSelectedItem();
 		Instant startTime = Instant.now();
-		
-		customerList.add(new Customer(name,machine,startTime,startTime.toString()));
-		
-		timeInput.setText(startTime.toString());
-		
-		
+		String startTimeString = startTime.toString();
+
+		model.getCustomerList().add(new Customer(name, machine, startTime, startTimeString));
+
+		timeInput.setText(startTimeString);
+
+	}
+
+	private void columnBinding() {
+		nameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+		machineNameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("machineName"));
+		startTimeCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("startTimeString"));
+		endTimeCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("stopTimeString"));
 	}
 	
-	private void columnBinding(){
-		nameCol.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
-		machineNameCol.setCellValueFactory(new PropertyValueFactory<Customer,String>("machineName"));
-		startTimeCol.setCellValueFactory(new PropertyValueFactory<Customer,String>("startTimeString"));
+	@FXML
+	private void deleteCustomerRow(ActionEvent event){
+		int index = customerTable.getSelectionModel().getSelectedIndex();
+		model.getCustomerList().remove(index);
 	}
-	
+
+	@FXML
+	private void computeCustomerInfo(ActionEvent event){
+		Instant endTime = Instant.now();
+		int index = customerTable.getSelectionModel().getSelectedIndex();
+		Customer selectedCustomer =model.getCustomerList().get(index);
+		selectedCustomer.setStopTime(endTime);
+		selectedCustomer.setStopTimeString(endTime.toString());
+	}
 
 }
