@@ -20,6 +20,7 @@ public class Main extends Application {
 	private Stage primaryStage;
 	private MainSceneController mainSceneController;
 	private final CustomerModel customerModel = new CustomerModel();
+	private final MachineModel machineModel = new MachineModel();
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -37,8 +38,8 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("MainScene.fxml"));
 			AnchorPane root =(AnchorPane) loader.load();
 			mainSceneController = loader.getController();
-			
-			mainSceneController.setModel(customerModel);
+			mainSceneController.setCustomerModel(customerModel);
+			mainSceneController.setMachineModel(machineModel);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -48,6 +49,9 @@ public class Main extends Application {
 		}
 	}
 	
+	public MachineModel getMachineModel() {
+		return machineModel;
+	}
 	public static void main(String[] args) {
 //		buildSessionFactory();
 //		addUser();
