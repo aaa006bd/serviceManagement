@@ -137,7 +137,7 @@ public class MainSceneController {
 		double amount = time *machineUsed.getMachineRate() *machineModel.TIME_UNIT;
 		
 		System.out.println("time is :" + time + " minutes");
-		return time;
+		return amount;
 	}
 
 }
